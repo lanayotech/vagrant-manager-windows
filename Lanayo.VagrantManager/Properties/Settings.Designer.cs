@@ -193,7 +193,7 @@ namespace Lanayo.Vagrant_Manager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\Program Files\\Oracle\\VirtualBox\\VBoxManage2.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe")]
         public string VBoxManagePath {
             get {
                 return ((string)(this["VBoxManagePath"]));

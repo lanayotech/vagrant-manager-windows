@@ -48,7 +48,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="VBoxManagePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\Program Files\Oracle\VirtualBox\VBoxManage2.exe</Value>
+      <Value Profile="(Default)">c:\Program Files\Oracle\VirtualBox\VBoxManage.exe</Value>
     </Setting>
     <Setting Name="VBoxManagePathPrompted" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
