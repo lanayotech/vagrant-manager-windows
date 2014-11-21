@@ -1,0 +1,57 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Lanayo.Vagrant_Manager.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Bookmarks" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="GithubUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://github.com/lanayotech/vagrant-manager-windows</Value>
+    </Setting>
+    <Setting Name="AppInfoUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://api.lanayo.com/info/vagrant_manager_windows</Value>
+    </Setting>
+    <Setting Name="AboutUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.vagrantmanager.com/windows</Value>
+    </Setting>
+    <Setting Name="AppcastUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://api.lanayo.com/appcast/vagrant_manager_windows.xml</Value>
+    </Setting>
+    <Setting Name="UsePathAsInstanceDisplayName" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="IncludeMachineNamesInMenu" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AutoCloseTaskWindows" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LaunchAtLogin" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowUpdateNotification" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="RefreshEvery" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AllowedUpdates" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Stable</Value>
+    </Setting>
+    <Setting Name="RefreshEveryInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="RecursiveBookmarkScan" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Guid" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="VBoxManagePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\Program Files\Oracle\VirtualBox\VBoxManage2.exe</Value>
+    </Setting>
+    <Setting Name="VBoxManagePathPrompted" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
