@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace Lanayo.Vagrant_Manager.Windows {
                 .Replace("\n", "<br>");
 
             WebBrowser.DocumentText = str;
+            WebBrowser.Navigating += WebBrowser_Navigating;
+        }
+
+        void WebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e) {
+            Process.Start(e.Url.AbsoluteUri);
+            e.Cancel = true;
         }
     }
 }
