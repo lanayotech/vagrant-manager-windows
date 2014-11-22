@@ -99,6 +99,7 @@ namespace Lanayo.Vagrant_Manager.Menu {
                         menuItem.Tag = identifier;
                         _ChooseProviderMenuItem.DropDownItems.Add(menuItem);
                     });
+                    MenuItem.DropDownItems.Add(_ChooseProviderMenuItem);
                 } else {
                     _ChooseProviderMenuItem.Text = String.Format("Provider: {0}", Instance.ProviderIdentifier ?? "Unknown");
                 }
