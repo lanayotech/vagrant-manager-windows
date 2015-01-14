@@ -77,9 +77,7 @@ namespace Lanayo.Vagrant_Manager {
 
             this.RefreshTimerState();
 
-            using (new SingleGlobalInstance(1000)) {
-                Application.Run();
-            }
+            Application.Run();
         }
 
         void Application_ApplicationExit(object sender, EventArgs e) {
