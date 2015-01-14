@@ -68,7 +68,7 @@ namespace Lanayo.Vagrant_Manager.Core.Vagrant {
                         FileName = "cmd",
                         WindowStyle = ProcessWindowStyle.Hidden,
                         CreateNoWindow = true,
-                        Arguments = String.Format("/C cd {0} && vagrant status", Util.EscapeShellArg(_Path)),
+                        Arguments = String.Format("/C cd /d {0} && vagrant status", Util.EscapeShellArg(_Path)),
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
                     }

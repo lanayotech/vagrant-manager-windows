@@ -77,9 +77,7 @@ namespace Lanayo.Vagrant_Manager {
 
             this.RefreshTimerState();
 
-            using (new SingleGlobalInstance(1000)) {
-                Application.Run();
-            }
+            Application.Run();
         }
 
         void Application_ApplicationExit(object sender, EventArgs e) {
@@ -122,7 +120,7 @@ namespace Lanayo.Vagrant_Manager {
 
         public void PerformVagrantAction(string action, VagrantInstance instance) {
             if (action == "ssh") {
-                action = String.Format("cd {0} && vagrant ssh", Util.EscapeShellArg(instance.Path));
+                action = String.Format("cd /d {0} && vagrant ssh", Util.EscapeShellArg(instance.Path));
                 this.RunTerminalCommand(action);
             } else {
                 this.RunVagrantAction(action, instance);
@@ -130,7 +128,7 @@ namespace Lanayo.Vagrant_Manager {
         }
         public void PerformVagrantAction(string action, VagrantMachine machine) {
             if (action == "ssh") {
-                action = String.Format("cd {0} && vagrant ssh {1}", Util.EscapeShellArg(machine.Instance.Path), machine.Name);
+                action = String.Format("cd /d {0} && vagrant ssh {1}", Util.EscapeShellArg(machine.Instance.Path), machine.Name);
                 this.RunTerminalCommand(action);
             } else {
                 this.RunVagrantAction(action, machine);
@@ -147,7 +145,7 @@ namespace Lanayo.Vagrant_Manager {
             if (Directory.Exists(instance.Path)) {
                 Process p = new Process();
                 p.StartInfo.FileName = "cmd";
-                p.StartInfo.Arguments = String.Format("/K cd {0}", instance.Path);
+                p.StartInfo.Arguments = String.Format("/K cd /d {0}", instance.Path);
                 p.Start();
             } else {
                 MessageBox.Show("Path not found: " + instance.Path);
@@ -244,7 +242,7 @@ namespace Lanayo.Vagrant_Manager {
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.Arguments = String.Format("/C cd {0} && {1} {2}", Util.EscapeShellArg(machine.Instance.Path), command, Util.EscapeShellArg(machine.Name));
+            process.StartInfo.Arguments = String.Format("/C cd /d {0} && {1} {2}", Util.EscapeShellArg(machine.Instance.Path), command, Util.EscapeShellArg(machine.Name));
 
             TaskOutputWindow outputWindow = new TaskOutputWindow();
             outputWindow.Task = process;
@@ -282,7 +280,7 @@ namespace Lanayo.Vagrant_Manager {
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.Arguments = String.Format("/C cd {0} && {1}", Util.EscapeShellArg(instance.Path), command);
+            process.StartInfo.Arguments = String.Format("/C cd /d {0} && {1}", Util.EscapeShellArg(instance.Path), command);
 
             TaskOutputWindow outputWindow = new TaskOutputWindow();
             outputWindow.Task = process;
