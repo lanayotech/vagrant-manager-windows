@@ -72,6 +72,9 @@
     <Compile Include="App.cs" />
     <Compile Include="Core\Bookmarks\Bookmark.cs" />
     <Compile Include="Core\Bookmarks\BookmarkManager.cs" />
+    <Compile Include="Core\CommandPromptApps\Apps\ConEmu.cs" />
+    <Compile Include="Core\CommandPromptApps\Apps\cmd.cs" />
+    <Compile Include="Core\CommandPromptApps\CommandPromptApp.cs" />
     <Compile Include="Core\Providers\VagrantGlobalStatusScanner.cs" />
     <Compile Include="Core\Providers\VirtualBoxMachineInfo.cs" />
     <Compile Include="Core\Providers\VirtualBoxServiceProvider.cs" />
