@@ -71,8 +71,6 @@ namespace Lanayo.Vagrant_Manager {
 
             var dummy = _NativeMenu.Menu.Handle; // forces handle creation so _NativeMenu.Menu.BeginInvoke can work before the menu was ever clicked
 
-            this.VerifyVBoxManagePath();
-
             this.RefreshVagrantMachines();
 
             this.RefreshTimerState();
