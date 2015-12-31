@@ -1,5 +1,7 @@
 # Vagrant Manager for Windows
 
+**--- _This project is no longer under active development_ ---**
+
 Vagrant Manager is a Windows status bar menu app that lets you manage all of your vagrant machines from one central location.
 More information is available at http://vagrantmanager.com/windows
 
