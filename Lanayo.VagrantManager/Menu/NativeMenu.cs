@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -139,13 +140,17 @@ namespace Lanayo.Vagrant_Manager.Menu {
         }
         private void UpdateRunningVmCount(Notification notification) {
             int count = (int)notification.UserInfo["count"];
+            Icon newIcon = null;
 
             if (count > 0) {
                 //TODO: show running vm count?
-                _NotifyIcon.Icon = Icon.FromHandle(Resources.vagrant_logo_on.GetHicon());
+                newIcon = Icon.FromHandle(Resources.vagrant_logo_on.GetHicon());
             } else {
-                _NotifyIcon.Icon = Icon.FromHandle(Resources.vagrant_logo_off.GetHicon());
+                newIcon = Icon.FromHandle(Resources.vagrant_logo_off.GetHicon());
             }
+
+            _NotifyIcon.Icon = newIcon;
+            DestroyIcon(newIcon.Handle);
         }
 
         #endregion
@@ -233,8 +238,14 @@ namespace Lanayo.Vagrant_Manager.Menu {
             }
         }
 
+        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = CharSet.Auto)]
+        extern static bool DestroyIcon(IntPtr handle);
+
         private void UpdateRefreshIcon(object s, EventArgs args) {
-            _NotifyIcon.Icon = Icon.FromHandle((Resources.ResourceManager.GetObject(String.Format("vagrant_logo_refresh{0}", _RefreshIconFrame)) as Bitmap).GetHicon());
+            Icon newIcon = Icon.FromHandle((Resources.ResourceManager.GetObject(String.Format("vagrant_logo_refresh{0}", _RefreshIconFrame)) as Bitmap).GetHicon());
+            _NotifyIcon.Icon = newIcon;
+
+            DestroyIcon(newIcon.Handle);
 
             if(++_RefreshIconFrame > 6) {
                 _RefreshIconFrame = 1;
