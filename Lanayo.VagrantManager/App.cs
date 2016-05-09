@@ -330,7 +330,7 @@ namespace Lanayo.Vagrant_Manager {
         public void VerifyVBoxManagePath() {
             if (!File.Exists(Properties.Settings.Default.VBoxManagePath) && !Properties.Settings.Default.VBoxManagePathPrompted) {
 
-                MessageBox.Show("VBoxManage.exe not found at default location", "Vagrant Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("VBoxManage.exe not found at default location.\n\nIf using VirtualBox as your VM provider, you may specify an alternate path now, otherwise you may ignore this message, it will not appear again", "Vagrant Manager", MessageBoxButtons.OK);
 
                 OpenFileDialog dialog = new OpenFileDialog();
                 dialog.Title = "Select VBoxManage.exe";
