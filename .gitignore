@@ -183,3 +183,6 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 Lanayo.VagrantManager/Images/Thumbs.db
+
+/Output/*
+*.iss
