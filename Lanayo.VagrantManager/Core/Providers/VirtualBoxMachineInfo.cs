@@ -48,6 +48,9 @@ namespace Lanayo.Vagrant_Manager.Core.Providers {
                     if (name.StartsWith("SharedFolderNameMachineMapping")) {
                         sharedFolders[mappingId]["name"] = value;
                     } else if(name.StartsWith("SharedFolderPathMachineMapping")) {
+                        if (value.StartsWith(@"\\?\")) {
+                            value = value.Substring(4);
+                        }
                         sharedFolders[mappingId]["path"] = new DirectoryInfo(value).FullName;
                     }
                 } else {
