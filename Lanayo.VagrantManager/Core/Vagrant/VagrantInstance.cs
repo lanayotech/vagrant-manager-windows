@@ -75,8 +75,8 @@ namespace Lanayo.Vagrant_Manager.Core.Vagrant {
                 };
 
                 p.Start();
-                p.WaitForExit();
                 string outputString = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
 
                 Regex regex = new Regex("([\\w-_\\.]+)\\s+([\\w\\s]+) \\(\\w+\\)");
                 MatchCollection matchCollection = regex.Matches(outputString);
