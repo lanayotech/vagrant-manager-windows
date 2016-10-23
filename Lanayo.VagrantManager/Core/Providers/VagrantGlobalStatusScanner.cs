@@ -25,8 +25,8 @@ namespace Lanayo.Vagrant_Manager.Core.Providers {
             };
 
             p.Start();
-            p.WaitForExit();
             string outputString = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
 
             if (p.ExitCode == 0) {
                 Regex regex = new Regex("(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+([A-Z]:/.*)(\\n|$)");

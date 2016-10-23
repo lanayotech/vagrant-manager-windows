@@ -48,7 +48,7 @@
             this.TaskProgressBar.Location = new System.Drawing.Point(16, 30);
             this.TaskProgressBar.MarqueeAnimationSpeed = 10;
             this.TaskProgressBar.Name = "TaskProgressBar";
-            this.TaskProgressBar.Size = new System.Drawing.Size(365, 23);
+            this.TaskProgressBar.Size = new System.Drawing.Size(756, 23);
             this.TaskProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.TaskProgressBar.TabIndex = 1;
             // 
@@ -62,7 +62,7 @@
             this.TaskCommandTextBox.Location = new System.Drawing.Point(16, 60);
             this.TaskCommandTextBox.Name = "TaskCommandTextBox";
             this.TaskCommandTextBox.ReadOnly = true;
-            this.TaskCommandTextBox.Size = new System.Drawing.Size(365, 20);
+            this.TaskCommandTextBox.Size = new System.Drawing.Size(756, 20);
             this.TaskCommandTextBox.TabIndex = 2;
             this.TaskCommandTextBox.Text = "Task Command";
             // 
@@ -70,7 +70,7 @@
             // 
             this.CloseWindowButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CloseWindowButton.Enabled = false;
-            this.CloseWindowButton.Location = new System.Drawing.Point(260, 288);
+            this.CloseWindowButton.Location = new System.Drawing.Point(651, 526);
             this.CloseWindowButton.Name = "CloseWindowButton";
             this.CloseWindowButton.Size = new System.Drawing.Size(120, 23);
             this.CloseWindowButton.TabIndex = 4;
@@ -81,7 +81,7 @@
             // CancelTaskButton
             // 
             this.CancelTaskButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelTaskButton.Location = new System.Drawing.Point(179, 288);
+            this.CancelTaskButton.Location = new System.Drawing.Point(570, 526);
             this.CancelTaskButton.Name = "CancelTaskButton";
             this.CancelTaskButton.Size = new System.Drawing.Size(75, 23);
             this.CancelTaskButton.TabIndex = 5;
@@ -102,14 +102,14 @@
             this.OutputTextBox.Name = "OutputTextBox";
             this.OutputTextBox.ReadOnly = true;
             this.OutputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.OutputTextBox.Size = new System.Drawing.Size(364, 195);
+            this.OutputTextBox.Size = new System.Drawing.Size(755, 433);
             this.OutputTextBox.TabIndex = 6;
             // 
             // TaskOutputWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(393, 323);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.OutputTextBox);
             this.Controls.Add(this.CancelTaskButton);
             this.Controls.Add(this.CloseWindowButton);
@@ -119,6 +119,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(409, 362);
             this.Name = "TaskOutputWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Task";
             this.Load += new System.EventHandler(this.TaskOutputWindow_Load);
             this.ResumeLayout(false);

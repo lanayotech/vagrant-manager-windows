@@ -54,8 +54,8 @@ namespace Lanayo.Vagrant_Manager.Core.Providers {
                 return uuids.ToArray(); 
             }
 
-            p.WaitForExit();
             string outputString = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
 
             if (p.ExitCode == 0) {
                 Regex regex = new Regex("\"[^\"]+\"\\s+\\{([^\\}]+)\\}");
@@ -88,8 +88,8 @@ namespace Lanayo.Vagrant_Manager.Core.Providers {
                 return null;
             }
 
-            p.WaitForExit();
             string outputString = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
 
             if (p.ExitCode == 0) {
                 return new VirtualBoxMachineInfo(outputString);
