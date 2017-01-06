@@ -174,7 +174,7 @@ namespace Lanayo.Vagrant_Manager.Core.Vagrant {
         }
 
         public string[] GetProviderIdentifiers() {
-            return _Providers.Keys.ToArray().Concat(new List<string> { "vmware_workstation", "vmware_fusion", "docker" }).ToArray();
+            return _Providers.Keys.ToArray().Concat(new List<string> { "hyperv", "vmware_workstation", "vmware_fusion", "docker" }).ToArray();
         }
 
     }
