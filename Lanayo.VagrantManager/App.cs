@@ -12,6 +12,7 @@ using Lanayo.Vagrant_Manager.Core.Vagrant;
 using Lanayo.Vagrant_Manager.Windows;
 using Lanayo.Vagrant_Manager.Menu;
 using Lanayo.Vagrant_Manager.Core.Providers;
+using Lanayo.Vagrant_Manager.Core.CommandPromptApps;
 using System.IO;
 
 namespace Lanayo.Vagrant_Manager {
@@ -119,17 +120,16 @@ namespace Lanayo.Vagrant_Manager {
         #region Menu item handlers
 
         public void PerformVagrantAction(string action, VagrantInstance instance) {
-            if (action == "ssh") {
-                action = String.Format("cd /d {0} && vagrant ssh", Util.EscapeShellArg(instance.Path));
-                this.RunTerminalCommand(action);
+            if (action == "ssh") {                
+                this.RunTerminalCommand("vagrant ssh", instance.Path);
             } else {
                 this.RunVagrantAction(action, instance);
             }
         }
         public void PerformVagrantAction(string action, VagrantMachine machine) {
             if (action == "ssh") {
-                action = String.Format("cd /d {0} && vagrant ssh {1}", Util.EscapeShellArg(machine.Instance.Path), machine.Name);
-                this.RunTerminalCommand(action);
+                action = String.Format("vagrant ssh {0}", machine.Name);
+                this.RunTerminalCommand(action, machine.Instance.Path);
             } else {
                 this.RunVagrantAction(action, machine);
             }
@@ -143,10 +143,13 @@ namespace Lanayo.Vagrant_Manager {
         }
         public void OpenInstanceInTerminal(VagrantInstance instance) {
             if (Directory.Exists(instance.Path)) {
-                Process p = new Process();
-                p.StartInfo.FileName = "cmd";
-                p.StartInfo.Arguments = String.Format("/K cd /d {0}", instance.Path);
-                p.Start();
+                try
+                {
+                    CommandPromptApp.GetCurrent().launch(instance.Path);
+                } catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }                
             } else {
                 MessageBox.Show("Path not found: " + instance.Path);
             }
@@ -292,11 +295,12 @@ namespace Lanayo.Vagrant_Manager {
             _TaskOutputWindows.Add(outputWindow);
         }
 
-        private void RunTerminalCommand(string command) {
-            Process p = new Process();
-            p.StartInfo.FileName = "cmd";
-            p.StartInfo.Arguments = String.Format("/C {0}", command);
-            p.Start();
+        private void RunTerminalCommand(string command, string path = ".") {
+            try {
+                CommandPromptApp.GetCurrent().launch(path, command);
+            } catch (Exception ex) {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         #endregion

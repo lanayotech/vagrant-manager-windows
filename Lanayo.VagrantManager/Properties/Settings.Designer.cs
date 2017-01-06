@@ -214,5 +214,22 @@ namespace Lanayo.Vagrant_Manager.Properties {
                 this["VBoxManagePathPrompted"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\WINDOWS\\system32\\cmd.exe")]
+        public string CommandPromptPath
+        {
+            get
+            {
+                return ((string)(this["CommandPromptPath"]));
+            }
+            set
+            {
+                this["CommandPromptPath"] = value;
+            }
+        }
+
+
     }
 }

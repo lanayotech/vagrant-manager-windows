@@ -1,14 +1,11 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Lanayo.Vagrant_Manager.Core.CommandPromptApps;
 
 namespace Lanayo.Vagrant_Manager.Windows {
     public partial class PreferencesWindow : Form {
@@ -42,6 +39,26 @@ namespace Lanayo.Vagrant_Manager.Windows {
             VirtualBoxPathTextBox.Text = Properties.Settings.Default.VBoxManagePath;
             VirtualBoxPathTextBox.TextChanged += VirtualBoxPathTextBox_TextChanged;
             VirtualBoxPathTextBox_TextChanged(VirtualBoxPathTextBox, EventArgs.Empty);
+            CommandPromptTextBox.Text = Properties.Settings.Default.CommandPromptPath;
+            CommandPromptTextBox.TextChanged += CommandPromptTextBox_TextChanged;
+            CommandPromptTextBox_TextChanged(CommandPromptTextBox, EventArgs.Empty);
+        }
+
+        private void CommandPromptTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.CommandPromptPath = CommandPromptTextBox.Text;
+            Properties.Settings.Default.Save();
+
+            if (File.Exists(CommandPromptTextBox.Text))
+            {
+                CommandPromptPathStatusTextBox.Text = "Linked";
+                CommandPromptPathStatusTextBox.ForeColor = Color.DarkGreen;
+            }
+            else
+            {
+                CommandPromptPathStatusTextBox.Text = "Unlinked";
+                CommandPromptPathStatusTextBox.ForeColor = Color.DarkRed;
+            }
         }
 
         void VirtualBoxPathTextBox_TextChanged(object sender, EventArgs e) {
@@ -121,6 +138,23 @@ namespace Lanayo.Vagrant_Manager.Windows {
             if (dialog.ShowDialog() == DialogResult.OK) {
                 DirectoryInfo info = new DirectoryInfo(dialog.FileName);
                 VirtualBoxPathTextBox.Text = info.FullName;
+            }
+        }
+
+        private void CommandPromptBrowseButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Select command prompt exe";
+            dialog.Filter = String.Join(
+                "|",
+                CommandPromptApp.GetAll().Select(
+                    t => t.GetType().Name + "|" + String.Join(";", t.SupportedFiles)
+                ).ToArray()
+            );
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                DirectoryInfo info = new DirectoryInfo(dialog.FileName);
+                this.CommandPromptTextBox.Text = info.FullName;
             }
         }
     }
