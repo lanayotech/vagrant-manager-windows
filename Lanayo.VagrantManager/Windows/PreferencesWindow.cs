@@ -32,16 +32,42 @@ namespace Lanayo.Vagrant_Manager.Windows {
 
             RefreshEveryComboBox.Items.AddRange(RefreshItems);
 
-            LaunchAtLoginCheckBox.Checked = Properties.Settings.Default.LaunchAtLogin;
-            UpdateNotificationCheckBox.Checked = Properties.Settings.Default.ShowUpdateNotification;
-            InstancePathAsDisplayCheckBox.Checked = Properties.Settings.Default.UsePathAsInstanceDisplayName;
-            IncludeMachineNamesCheckBox.Checked = Properties.Settings.Default.IncludeMachineNamesInMenu;
-            AutoCloseTaskWindowCheckBox.Checked = Properties.Settings.Default.AutoCloseTaskWindows;
+            InitializeAdvancedTabGroup();
+
             RefreshEveryComboBox.Text = Properties.Settings.Default.RefreshEveryInterval > 0 ? RefreshItems.First(item => item.Value == Properties.Settings.Default.RefreshEveryInterval).Text : RefreshItems[4].Text;
             RefreshEveryCheckBox.Checked = Properties.Settings.Default.RefreshEvery;
             VirtualBoxPathTextBox.Text = Properties.Settings.Default.VBoxManagePath;
             VirtualBoxPathTextBox.TextChanged += VirtualBoxPathTextBox_TextChanged;
             VirtualBoxPathTextBox_TextChanged(VirtualBoxPathTextBox, EventArgs.Empty);
+            
+        }
+
+        private void InitializeAdvancedTabGroup()
+        {
+            LaunchAtLoginCheckBox.Checked = Properties.Settings.Default.LaunchAtLogin;
+            UpdateNotificationCheckBox.Checked = Properties.Settings.Default.ShowUpdateNotification;
+            InstancePathAsDisplayCheckBox.Checked = Properties.Settings.Default.UsePathAsInstanceDisplayName;
+            IncludeMachineNamesCheckBox.Checked = Properties.Settings.Default.IncludeMachineNamesInMenu;
+            AutoCloseTaskWindowCheckBox.Checked = Properties.Settings.Default.AutoCloseTaskWindows;
+
+            UseDefaultTerminalCheckBox.Checked = (Properties.Settings.Default.DefaultTerminalCommand == Properties.Settings.Default.CurrentTerminalCommand && Properties.Settings.Default.DefaultTerminalArguments == Properties.Settings.Default.CurrentTerminalArguments);
+            TerminalStartCommandTextbox.Enabled = !UseDefaultTerminalCheckBox.Checked;
+            TerminalStartCommandTextbox.Text = Properties.Settings.Default.CurrentTerminalCommand;
+            TerminalStartArgumentsTextbox.Enabled = !UseDefaultTerminalCheckBox.Checked;
+            TerminalStartArgumentsTextbox.Text = Properties.Settings.Default.CurrentTerminalArguments;
+
+
+            UseDefaultSshToMachineCheckBox.Checked = (Properties.Settings.Default.DefaultSshToMachineCommand == Properties.Settings.Default.CurrentSshToMachineCommand && Properties.Settings.Default.DefaultSshToMachineArguments == Properties.Settings.Default.CurrentSshToMachineArguments);
+            SshToMachineCommandTextBox.Enabled = !UseDefaultSshToMachineCheckBox.Checked;
+            SshToMachineCommandTextBox.Text = Properties.Settings.Default.CurrentSshToMachineCommand;
+            SshToMachineArgumentsTextBox.Enabled = !UseDefaultSshToMachineCheckBox.Checked;
+            SshToMachineArgumentsTextBox.Text = Properties.Settings.Default.CurrentSshToMachineArguments;
+
+            UseDefaultSshToInstanceCheckBox.Checked = (Properties.Settings.Default.DefaultSshToInstanceCommand == Properties.Settings.Default.CurrentSshToInstanceCommand && Properties.Settings.Default.DefaultSshToInstanceArguments == Properties.Settings.Default.CurrentSshToInstanceArguments);
+            SshToInstanceCommandTextBox.Enabled = !UseDefaultSshToInstanceCheckBox.Checked;
+            SshToInstanceCommandTextBox.Text = Properties.Settings.Default.CurrentSshToInstanceCommand;
+            SshToInstanceArgumentsTextBox.Enabled = !UseDefaultSshToInstanceCheckBox.Checked;
+            SshToInstanceArgumentsTextBox.Text = Properties.Settings.Default.CurrentSshToInstanceArguments;
         }
 
         void VirtualBoxPathTextBox_TextChanged(object sender, EventArgs e) {
@@ -123,5 +149,95 @@ namespace Lanayo.Vagrant_Manager.Windows {
                 VirtualBoxPathTextBox.Text = info.FullName;
             }
         }
+
+        private void DefaultTerminalCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            TerminalStartCommandTextbox.Enabled = !UseDefaultTerminalCheckBox.Checked;
+            TerminalStartArgumentsTextbox.Enabled = !UseDefaultTerminalCheckBox.Checked;
+            Properties.Settings.Default.CurrentTerminalCommand = ((UseDefaultTerminalCheckBox.Checked) ? Properties.Settings.Default.DefaultTerminalCommand : Properties.Settings.Default.UserTerminalCommand);
+            Properties.Settings.Default.CurrentTerminalArguments = ((UseDefaultTerminalCheckBox.Checked) ? Properties.Settings.Default.DefaultTerminalArguments : Properties.Settings.Default.UserTerminalArguments);
+            Properties.Settings.Default.Save();
+            TerminalStartCommandTextbox.Text = Properties.Settings.Default.CurrentTerminalCommand;
+            TerminalStartArgumentsTextbox.Text = Properties.Settings.Default.CurrentTerminalArguments;
+        }
+
+        private void UseDefaultSshToMachineCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            SshToMachineCommandTextBox.Enabled = !UseDefaultSshToMachineCheckBox.Checked;
+            SshToMachineArgumentsTextBox.Enabled = !UseDefaultSshToMachineCheckBox.Checked;
+            Properties.Settings.Default.CurrentSshToMachineCommand = ((UseDefaultSshToMachineCheckBox.Checked) ? Properties.Settings.Default.DefaultSshToMachineCommand : Properties.Settings.Default.UserSshToMachineCommand);
+            Properties.Settings.Default.CurrentSshToMachineArguments = ((UseDefaultSshToMachineCheckBox.Checked) ? Properties.Settings.Default.DefaultSshToMachineArguments : Properties.Settings.Default.UserSshToMachineArguments);
+            Properties.Settings.Default.Save();
+            SshToMachineCommandTextBox.Text = Properties.Settings.Default.CurrentSshToMachineCommand;
+            SshToMachineArgumentsTextBox.Text = Properties.Settings.Default.CurrentSshToMachineArguments;
+        }
+
+        private void UseDefaultSshToInstanceCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            SshToInstanceCommandTextBox.Enabled = !UseDefaultSshToInstanceCheckBox.Checked;
+            SshToInstanceArgumentsTextBox.Enabled = !UseDefaultSshToInstanceCheckBox.Checked;
+            Properties.Settings.Default.CurrentSshToInstanceCommand = ((UseDefaultSshToInstanceCheckBox.Checked) ? Properties.Settings.Default.DefaultSshToInstanceCommand : Properties.Settings.Default.UserSshToInstanceCommand);
+            Properties.Settings.Default.CurrentSshToInstanceArguments = ((UseDefaultSshToInstanceCheckBox.Checked) ? Properties.Settings.Default.DefaultSshToInstanceArguments : Properties.Settings.Default.UserSshToInstanceArguments);
+            Properties.Settings.Default.Save();
+            SshToInstanceCommandTextBox.Text = Properties.Settings.Default.CurrentSshToInstanceCommand;
+            SshToInstanceArgumentsTextBox.Text = Properties.Settings.Default.CurrentSshToInstanceArguments;
+        }
+
+        private void TerminalStartCommandTextbox_TextChanged(object sender, EventArgs e)
+        {
+            if (UseDefaultTerminalCheckBox.Checked)
+                return;
+
+            Properties.Settings.Default.UserTerminalCommand = TerminalStartCommandTextbox.Text;
+            Properties.Settings.Default.CurrentTerminalCommand = TerminalStartCommandTextbox.Text;
+
+        }
+
+        private void TerminalStartArgumentsTextbox_TextChanged(object sender, EventArgs e)
+        {
+            if (UseDefaultTerminalCheckBox.Checked)
+                return;
+
+            Properties.Settings.Default.UserTerminalArguments = TerminalStartArgumentsTextbox.Text;
+            Properties.Settings.Default.CurrentTerminalArguments = TerminalStartArgumentsTextbox.Text;
+        }
+
+        private void SshToMachineCommandTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (UseDefaultSshToMachineCheckBox.Checked)
+                return;
+
+            Properties.Settings.Default.UserSshToMachineCommand = SshToMachineCommandTextBox.Text;
+            Properties.Settings.Default.CurrentSshToMachineCommand = SshToMachineCommandTextBox.Text;
+        }
+
+        private void SshToMachineArgumentsTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (UseDefaultSshToMachineCheckBox.Checked)
+                return;
+
+            Properties.Settings.Default.UserSshToMachineArguments = SshToMachineArgumentsTextBox.Text;
+            Properties.Settings.Default.CurrentSshToMachineArguments = SshToMachineArgumentsTextBox.Text;
+        }
+
+        private void SshToInstanceCommandTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (UseDefaultSshToInstanceCheckBox.Checked)
+                return;
+
+            Properties.Settings.Default.UserSshToInstanceCommand = SshToInstanceCommandTextBox.Text;
+            Properties.Settings.Default.CurrentSshToInstanceCommand = SshToInstanceCommandTextBox.Text;
+        }
+
+        private void SshToInstanceArgumentsTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (UseDefaultSshToInstanceCheckBox.Checked)
+                return;
+
+            Properties.Settings.Default.UserSshToInstanceArguments = SshToInstanceArgumentsTextBox.Text;
+            Properties.Settings.Default.CurrentSshToInstanceArguments = SshToInstanceArgumentsTextBox.Text;
+        }
+
+        
     }
 }

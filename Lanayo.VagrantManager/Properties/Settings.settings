@@ -53,5 +53,65 @@
     <Setting Name="VBoxManagePathPrompted" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="DefaultTerminalCommand" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">cmd</Value>
+    </Setting>
+    <Setting Name="UserTerminalCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cmd</Value>
+    </Setting>
+    <Setting Name="CurrentTerminalCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cmd</Value>
+    </Setting>
+    <Setting Name="DefaultTerminalArguments" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/K cd /d {INSTANCE}</Value>
+    </Setting>
+    <Setting Name="UserTerminalArguments" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/K cd /d {INSTANCE}</Value>
+    </Setting>
+    <Setting Name="CurrentTerminalArguments" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/K cd /d {INSTANCE}</Value>
+    </Setting>
+    <Setting Name="InstancePathVariable" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">{INSTANCE}</Value>
+    </Setting>
+    <Setting Name="MachineNameVariable" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">{MACHINE}</Value>
+    </Setting>
+    <Setting Name="DefaultSshToMachineCommand" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">cmd</Value>
+    </Setting>
+    <Setting Name="UserSshToMachineCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cmd</Value>
+    </Setting>
+    <Setting Name="CurrentSshToMachineCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cmd</Value>
+    </Setting>
+    <Setting Name="DefaultSshToMachineArguments" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">cd /d {INSTANCE} &amp;&amp; vagrant ssh {MACHINE}</Value>
+    </Setting>
+    <Setting Name="UserSshToMachineArguments" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cd /d {INSTANCE} &amp;&amp; vagrant ssh {MACHINE}</Value>
+    </Setting>
+    <Setting Name="CurrentSshToMachineArguments" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cd /d {INSTANCE} &amp;&amp; vagrant ssh {MACHINE}</Value>
+    </Setting>
+    <Setting Name="DefaultSshToInstanceArguments" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">cd /d {INSTANCE} &amp;&amp; vagrant ssh</Value>
+    </Setting>
+    <Setting Name="UserSshToInstanceArguments" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cd /d {INSTANCE} &amp;&amp; vagrant ssh</Value>
+    </Setting>
+    <Setting Name="CurrentSshToInstanceArguments" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cd /d {INSTANCE} &amp;&amp; vagrant ssh</Value>
+    </Setting>
+    <Setting Name="DefaultSshToInstanceCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cmd</Value>
+    </Setting>
+    <Setting Name="UserSshToInstanceCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cmd</Value>
+    </Setting>
+    <Setting Name="CurrentSshToInstanceCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cmd</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

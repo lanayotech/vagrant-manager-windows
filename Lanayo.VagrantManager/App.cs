@@ -120,16 +120,19 @@ namespace Lanayo.Vagrant_Manager {
 
         public void PerformVagrantAction(string action, VagrantInstance instance) {
             if (action == "ssh") {
-                action = String.Format("cd /d {0} && vagrant ssh", Util.EscapeShellArg(instance.Path));
-                this.RunTerminalCommand(action);
+                var command = Properties.Settings.Default.CurrentSshToInstanceCommand.Replace(Properties.Settings.Default.InstancePathVariable, Util.EscapeShellArg(instance.Path));
+                var arguments = Properties.Settings.Default.CurrentSshToInstanceArguments.Replace(Properties.Settings.Default.InstancePathVariable, Util.EscapeShellArg(instance.Path));
+                this.RunCommand(command, arguments);
             } else {
                 this.RunVagrantAction(action, instance);
             }
         }
         public void PerformVagrantAction(string action, VagrantMachine machine) {
-            if (action == "ssh") {
-                action = String.Format("cd /d {0} && vagrant ssh {1}", Util.EscapeShellArg(machine.Instance.Path), machine.Name);
-                this.RunTerminalCommand(action);
+            if (action == "ssh")
+            {
+                var command = Properties.Settings.Default.CurrentSshToMachineCommand.Replace(Properties.Settings.Default.InstancePathVariable, Util.EscapeShellArg(machine.Instance.Path)).Replace(Properties.Settings.Default.MachineNameVariable, machine.Name);
+                var arguments = Properties.Settings.Default.CurrentSshToMachineArguments.Replace(Properties.Settings.Default.InstancePathVariable, Util.EscapeShellArg(machine.Instance.Path)).Replace(Properties.Settings.Default.MachineNameVariable, machine.Name);
+                this.RunCommand(command, arguments);
             } else {
                 this.RunVagrantAction(action, machine);
             }
@@ -142,11 +145,11 @@ namespace Lanayo.Vagrant_Manager {
             }
         }
         public void OpenInstanceInTerminal(VagrantInstance instance) {
-            if (Directory.Exists(instance.Path)) {
-                Process p = new Process();
-                p.StartInfo.FileName = "cmd";
-                p.StartInfo.Arguments = String.Format("/K cd /d {0}", instance.Path);
-                p.Start();
+            if (Directory.Exists(instance.Path))
+            {
+                var fileName = Properties.Settings.Default.CurrentTerminalCommand.Replace(Properties.Settings.Default.InstancePathVariable ,instance.Path);
+                var arguments = Properties.Settings.Default.CurrentTerminalArguments.Replace(Properties.Settings.Default.InstancePathVariable , instance.Path);
+                RunCommand(fileName,arguments);
             } else {
                 MessageBox.Show("Path not found: " + instance.Path);
             }
@@ -292,10 +295,10 @@ namespace Lanayo.Vagrant_Manager {
             _TaskOutputWindows.Add(outputWindow);
         }
 
-        private void RunTerminalCommand(string command) {
+        private void RunCommand(string command, string arguments) {
             Process p = new Process();
-            p.StartInfo.FileName = "cmd";
-            p.StartInfo.Arguments = String.Format("/C {0}", command);
+            p.StartInfo.FileName = command;
+            p.StartInfo.Arguments = arguments; //String.Format("/C {0}", command);
             p.Start();
         }
 
