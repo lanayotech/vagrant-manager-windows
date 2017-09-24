@@ -251,8 +251,7 @@ namespace Lanayo.Vagrant_Manager.Menu {
                             machineProvisionMenuItem.Visible = true;
                             machineRsyncMenuItem.Visible = true;
                             machineRsyncAutoMenuItem.Visible = true;
-                        }
-                        else {
+                        } else {
                             machineUpMenuItem.Visible = true;
                             machineSSHMenuItem.Visible = false;
                             machineReloadMenuItem.Visible = false;

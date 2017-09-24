@@ -126,7 +126,7 @@ namespace Lanayo.Vagrant_Manager {
                 action = String.Format("cd /d {0} && vagrant rsync-auto", Util.EscapeShellArg(instance.Path));
                 this.RunTerminalCommand(action);
             } else {
-                    this.RunVagrantAction(action, instance);
+                this.RunVagrantAction(action, instance);
             }
         }
         public void PerformVagrantAction(string action, VagrantMachine machine) {
@@ -138,7 +138,7 @@ namespace Lanayo.Vagrant_Manager {
                 action = String.Format("cd /d {0} && vagrant rsync-auto", Util.EscapeShellArg(machine.Instance.Path));
                 this.RunTerminalCommand(action);
             } else {
-                    this.RunVagrantAction(action, machine);
+                this.RunVagrantAction(action, machine);
             }
         }
         public void OpenInstanceInExplorer(VagrantInstance instance) {
