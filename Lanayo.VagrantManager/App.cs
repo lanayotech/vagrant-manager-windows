@@ -122,16 +122,24 @@ namespace Lanayo.Vagrant_Manager {
             if (action == "ssh") {
                 action = String.Format("cd /d {0} && vagrant ssh", Util.EscapeShellArg(instance.Path));
                 this.RunTerminalCommand(action);
-            } else {
-                this.RunVagrantAction(action, instance);
+            } else if (action == "rsync-auto") {
+                action = String.Format("cd /d {0} && vagrant rsync-auto", Util.EscapeShellArg(instance.Path));
+                this.RunTerminalCommand(action);
+            }
+            else {
+                    this.RunVagrantAction(action, instance);
             }
         }
         public void PerformVagrantAction(string action, VagrantMachine machine) {
             if (action == "ssh") {
                 action = String.Format("cd /d {0} && vagrant ssh {1}", Util.EscapeShellArg(machine.Instance.Path), machine.Name);
                 this.RunTerminalCommand(action);
+            }
+            else if (action == "rsync-auto") {
+                action = String.Format("cd /d {0} && vagrant rsync-auto", Util.EscapeShellArg(machine.Instance.Path));
+                this.RunTerminalCommand(action);
             } else {
-                this.RunVagrantAction(action, machine);
+                    this.RunVagrantAction(action, machine);
             }
         }
         public void OpenInstanceInExplorer(VagrantInstance instance) {
@@ -231,7 +239,10 @@ namespace Lanayo.Vagrant_Manager {
                 command = "vagrant provision";
             } else if (action == "destroy") {
                 command = "vagrant destroy -f";
-            } else {
+            } else if (action == "rsync") {
+                command = "vagrant rsync";
+            }
+            else {
                 return;
             }
 
@@ -269,7 +280,10 @@ namespace Lanayo.Vagrant_Manager {
                 command = "vagrant provision";
             } else if (action == "destroy") {
                 command = "vagrant destroy -f";
-            } else {
+            } else if (action == "rsync") {
+                command = "vagrant rsync";
+            }
+            else {
                 return;
             }
 

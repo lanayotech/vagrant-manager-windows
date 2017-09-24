@@ -22,6 +22,8 @@ namespace Lanayo.Vagrant_Manager.Menu {
         private ToolStripMenuItem _InstanceHaltMenuItem;
         private ToolStripMenuItem _InstanceDestroyMenuItem;
         private ToolStripMenuItem _InstanceProvisionMenuItem;
+        private ToolStripMenuItem _InstanceRsyncMenuItem;
+        private ToolStripMenuItem _InstanceRsyncAutoMenuItem;
 
         private ToolStripMenuItem _OpenInExplorerMenuItem;
         private ToolStripMenuItem _OpenInTerminalMenuItem;
@@ -75,6 +77,18 @@ namespace Lanayo.Vagrant_Manager.Menu {
                 if (_InstanceProvisionMenuItem == null) {
                     _InstanceProvisionMenuItem = new ToolStripMenuItem(Instance.Machines.Length > 1 ? "Provision All" : "Provision", Resources.provision, ProvisionAllMachines_Click);
                     MenuItem.DropDownItems.Add(_InstanceProvisionMenuItem);
+                }
+
+                if (_InstanceRsyncMenuItem == null)
+                {
+                    _InstanceRsyncMenuItem = new ToolStripMenuItem(Instance.Machines.Length > 1 ? "Rsync All" : "Rsync", Resources.rsync, RsyncAllMachines_Click);
+                    MenuItem.DropDownItems.Add(_InstanceRsyncMenuItem);
+                }
+
+                if (_InstanceRsyncAutoMenuItem == null)
+                {
+                    _InstanceRsyncAutoMenuItem = new ToolStripMenuItem("Rsync-Auto", Resources.rsyncauto, RsyncAutoInstance_Click);
+                    MenuItem.DropDownItems.Add(_InstanceRsyncAutoMenuItem);
                 }
 
                 if (_ActionSeparator == null) {
@@ -133,6 +147,8 @@ namespace Lanayo.Vagrant_Manager.Menu {
                         _InstanceSuspendMenuItem.Visible = false;
                         _InstanceHaltMenuItem.Visible = false;
                         _InstanceProvisionMenuItem.Visible = false;
+                        _InstanceRsyncMenuItem.Visible = false;
+                        _InstanceRsyncAutoMenuItem.Visible = false;
                     }
 
                     if (runningCount > 0) {
@@ -142,10 +158,14 @@ namespace Lanayo.Vagrant_Manager.Menu {
                         _InstanceSuspendMenuItem.Visible = true;
                         _InstanceHaltMenuItem.Visible = true;
                         _InstanceProvisionMenuItem.Visible = true;
+                        _InstanceRsyncMenuItem.Visible = true;
+                        _InstanceRsyncAutoMenuItem.Visible = true;
                     }
 
+                    // hide terminal based actions if more than one instance
                     if (Instance.Machines.Count() > 1) {
                         _SSHMenuItem.Visible = false;
+                        _InstanceRsyncAutoMenuItem.Visible = false;
                     }
 
                     if (BookmarkManager.Instance.GetBookmarkWithPath(Instance.Path) != null) {
@@ -202,6 +222,8 @@ namespace Lanayo.Vagrant_Manager.Menu {
                         ToolStripMenuItem machineHaltMenuItem = new ToolStripMenuItem("Halt", Resources.halt, HaltMachine_Click) { Tag = machine };
                         ToolStripMenuItem machineDestroyMenuItem = new ToolStripMenuItem("Destroy", Resources.destroy, DestroyMachine_Click) { Tag = machine };
                         ToolStripMenuItem machineProvisionMenuItem = new ToolStripMenuItem("Provision", Resources.provision, ProvisionMachine_Click) { Tag = machine };
+                        ToolStripMenuItem machineRsyncMenuItem = new ToolStripMenuItem("Rsync", Resources.rsync, RsyncMachine_Click) { Tag = machine };
+                        ToolStripMenuItem machineRsyncAutoMenuItem = new ToolStripMenuItem("Rsync-Auto", Resources.rsyncauto, RsyncAutoMachine_Click) { Tag = machine };
 
                         machineItem.DropDownItems.AddRange(new ToolStripMenuItem[] {
                             machineUpMenuItem,
@@ -210,7 +232,9 @@ namespace Lanayo.Vagrant_Manager.Menu {
                             machineSuspendMenuItem,
                             machineHaltMenuItem,
                             machineDestroyMenuItem,
-                            machineProvisionMenuItem
+                            machineProvisionMenuItem,
+                            machineRsyncMenuItem,
+                            machineRsyncAutoMenuItem
                         });
 
                         _MachineMenuItems.Add(machineItem);
@@ -225,13 +249,18 @@ namespace Lanayo.Vagrant_Manager.Menu {
                             machineSuspendMenuItem.Visible = true;
                             machineHaltMenuItem.Visible = true;
                             machineProvisionMenuItem.Visible = true;
-                        } else {
+                            machineRsyncMenuItem.Visible = true;
+                            machineRsyncAutoMenuItem.Visible = true;
+                        }
+                        else {
                             machineUpMenuItem.Visible = true;
                             machineSSHMenuItem.Visible = false;
                             machineReloadMenuItem.Visible = false;
                             machineSuspendMenuItem.Visible = false;
                             machineHaltMenuItem.Visible = false;
                             machineProvisionMenuItem.Visible = false;
+                            machineRsyncMenuItem.Visible = false;
+                            machineRsyncAutoMenuItem.Visible = false;
                         }
                     });
                 } else {
@@ -248,6 +277,11 @@ namespace Lanayo.Vagrant_Manager.Menu {
 
         public void SSHInstance_Click(object sender, EventArgs e) {
             Delegate.NativeMenuItemSSHInstance(this);
+        }
+
+        public void RsyncAutoInstance_Click(object sender, EventArgs e)
+        {
+            Delegate.NativeMenuItemRsyncAutoInstance(this);
         }
 
         public void ReloadAllMachines_Click(object sender, EventArgs e) {
@@ -268,6 +302,10 @@ namespace Lanayo.Vagrant_Manager.Menu {
 
         public void ProvisionAllMachines_Click(object sender, EventArgs e) {
             Delegate.NativeMenuItemProvisionAllMachines(this);
+        }
+
+        public void RsyncAllMachines_Click(object sender, EventArgs e) {
+            Delegate.NativeMenuItemRsyncAllMachines(this);
         }
 
         public void OpenInExplorerMenuItem_Click(object sender, EventArgs e) {
@@ -321,5 +359,14 @@ namespace Lanayo.Vagrant_Manager.Menu {
         public void ProvisionMachine_Click(object sender, EventArgs e) {
             Delegate.NativeMenuItemProvisionMachine((VagrantMachine)((ToolStripMenuItem)sender).Tag);
         }
+
+        public void RsyncMachine_Click(object sender, EventArgs e) {
+            Delegate.NativeMenuItemRsyncMachine((VagrantMachine)((ToolStripMenuItem)sender).Tag);
+        }
+
+        public void RsyncAutoMachine_Click(object sender, EventArgs e) {
+            Delegate.NativeMenuItemRsyncAutoMachine((VagrantMachine)((ToolStripMenuItem)sender).Tag);
+        }
+
     }
 }
