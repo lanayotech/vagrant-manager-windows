@@ -125,8 +125,7 @@ namespace Lanayo.Vagrant_Manager {
             } else if (action == "rsync-auto") {
                 action = String.Format("cd /d {0} && vagrant rsync-auto", Util.EscapeShellArg(instance.Path));
                 this.RunTerminalCommand(action);
-            }
-            else {
+            } else {
                     this.RunVagrantAction(action, instance);
             }
         }
@@ -241,8 +240,7 @@ namespace Lanayo.Vagrant_Manager {
                 command = "vagrant destroy -f";
             } else if (action == "rsync") {
                 command = "vagrant rsync";
-            }
-            else {
+            } else {
                 return;
             }
 
@@ -282,8 +280,7 @@ namespace Lanayo.Vagrant_Manager {
                 command = "vagrant destroy -f";
             } else if (action == "rsync") {
                 command = "vagrant rsync";
-            }
-            else {
+            } else {
                 return;
             }
 

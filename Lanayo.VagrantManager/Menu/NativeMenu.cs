@@ -80,7 +80,7 @@ namespace Lanayo.Vagrant_Manager.Menu {
                 new ToolStripMenuItem("Halt", Resources.halt, AllHaltMenuItem_Click),
                 new ToolStripMenuItem("Provision", Resources.provision, AllProvisionMenuItem_Click),
                 new ToolStripMenuItem("Destroy", Resources.destroy, AllDestroyMenuitem_Click),
-                new ToolStripMenuItem("Rsync", Resources.rsync, AllRsyncMenuItem_Click),
+                new ToolStripMenuItem("Rsync", Resources.rsync, AllRsyncMenuItem_Click)
             });
             _Menu.Items.Add(allMachinesMenuItem);
             _Menu.Items.Add(Util.MakeBlankToolstripMenuItem("Manage Bookmarks", ManageBookmarksMenuItem_Click));
