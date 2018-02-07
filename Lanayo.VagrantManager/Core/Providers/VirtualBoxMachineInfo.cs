@@ -27,7 +27,7 @@ namespace Lanayo.Vagrant_Manager.Core.Providers {
                     name = name.Substring(1, name.Length - 2);
                 }
 
-                if (value.Substring(0, 1) == "\"") {
+                if (value != "" && value.Substring(0, 1) == "\"") {
                     value = value.Substring(1, value.Length - 2);
                 }
 
