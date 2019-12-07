@@ -10,11 +10,13 @@ namespace Lanayo.Vagrant_Manager.Menu {
     interface NativeMenuItemDelegate {
         void NativeMenuItemUpAllMachines(NativeMenuItem menuItem);
         void NativeMenuItemSSHInstance(NativeMenuItem menuItem);
+        void NativeMenuItemRsyncAutoInstance(NativeMenuItem menuItem);
         void NativeMenuItemSuspendAllMachines(NativeMenuItem menuItem);
         void NativeMenuItemReloadAllMachines(NativeMenuItem menuItem);
         void NativeMenuItemHaltAllMachines(NativeMenuItem menuItem);
         void NativeMenuItemDestroyAllMachines(NativeMenuItem menuItem);
         void NativeMenuItemProvisionAllMachines(NativeMenuItem menuItem);
+        void NativeMenuItemRsyncAllMachines(NativeMenuItem menuItem);
         void NativeMenuItemOpenExplorer(NativeMenuItem menuItem);
         void NativeMenuItemOpenTerminal(NativeMenuItem menuItem);
         void NativeMenuItemUpdateProviderIdentifier(NativeMenuItem menuItem, string providerIdentifier);
@@ -28,6 +30,8 @@ namespace Lanayo.Vagrant_Manager.Menu {
         void NativeMenuItemHaltMachine(VagrantMachine machine);
         void NativeMenuItemDestroyMachine(VagrantMachine machine);
         void NativeMenuItemProvisionMachine(VagrantMachine machine);
+        void NativeMenuItemRsyncMachine(VagrantMachine machine);
+        void NativeMenuItemRsyncAutoMachine(VagrantMachine machine);
 
     }
 }

@@ -79,7 +79,8 @@ namespace Lanayo.Vagrant_Manager.Menu {
                 new ToolStripMenuItem("Suspend", Resources.suspend, AllSuspendMenuItem_Click ),
                 new ToolStripMenuItem("Halt", Resources.halt, AllHaltMenuItem_Click),
                 new ToolStripMenuItem("Provision", Resources.provision, AllProvisionMenuItem_Click),
-                new ToolStripMenuItem("Destroy", Resources.destroy, AllDestroyMenuitem_Click)
+                new ToolStripMenuItem("Destroy", Resources.destroy, AllDestroyMenuitem_Click),
+                new ToolStripMenuItem("Rsync", Resources.rsync, AllRsyncMenuItem_Click)
             });
             _Menu.Items.Add(allMachinesMenuItem);
             _Menu.Items.Add(Util.MakeBlankToolstripMenuItem("Manage Bookmarks", ManageBookmarksMenuItem_Click));
@@ -265,6 +266,9 @@ namespace Lanayo.Vagrant_Manager.Menu {
         public void NativeMenuItemSSHInstance(NativeMenuItem menuItem) {
             this.PerformAction("ssh", menuItem.Instance);
         }
+        public void NativeMenuItemRsyncAutoInstance(NativeMenuItem menuItem) {
+            this.PerformAction("rsync-auto", menuItem.Instance);
+        }
         public void NativeMenuItemSuspendAllMachines(NativeMenuItem menuItem) {
             this.PerformAction("suspend", menuItem.Instance);
         }
@@ -282,6 +286,9 @@ namespace Lanayo.Vagrant_Manager.Menu {
         }
         public void NativeMenuItemProvisionAllMachines(NativeMenuItem menuItem) {
             this.PerformAction("provision", menuItem.Instance);
+        }
+        public void NativeMenuItemRsyncAllMachines(NativeMenuItem menuItem) {
+            this.PerformAction("rsync", menuItem.Instance);
         }
         public void NativeMenuItemOpenExplorer(NativeMenuItem menuItem) {
             Delegate.OpenInstanceInExplorer(menuItem.Instance);
@@ -330,6 +337,12 @@ namespace Lanayo.Vagrant_Manager.Menu {
         }
         public void NativeMenuItemProvisionMachine(VagrantMachine machine) {
             this.PerformAction("provision", machine);
+        }
+        public void NativeMenuItemRsyncMachine(VagrantMachine machine) {
+            this.PerformAction("rsync", machine);
+        }
+        public void NativeMenuItemRsyncAutoMachine(VagrantMachine machine) {
+            this.PerformAction("rsync-auto", machine);
         }
 
         #endregion
@@ -380,6 +393,15 @@ namespace Lanayo.Vagrant_Manager.Menu {
             VagrantManager.Instance.Instances.ToList().ForEach(instance => {
                 instance.Machines.ToList().ForEach(machine => {
                     this.PerformAction("provision", machine);
+                });
+            });
+        }
+
+        private void AllRsyncMenuItem_Click(object sender, EventArgs e)
+        {
+            VagrantManager.Instance.Instances.ToList().ForEach(instance => {
+                instance.Machines.ToList().ForEach(machine => {
+                    this.PerformAction("rsync", machine);
                 });
             });
         }
