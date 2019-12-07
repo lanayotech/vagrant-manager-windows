@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Vagrant Manager")]
 [assembly: AssemblyDescription("Manage your vagrant machines in one place with Vagrant Manager for Windows")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Lanayo Technologies")]
+[assembly: AssemblyCompany("Lanayo, LLC")]
 [assembly: AssemblyProduct("Vagrant Manager Windows")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright © 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.8")]
-[assembly: AssemblyFileVersion("1.0.0.8")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
