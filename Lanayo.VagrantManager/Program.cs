@@ -15,9 +15,8 @@ namespace Lanayo.Vagrant_Manager {
         /// </summary>
         [STAThread]
         static void Main() {
-            bool OK;
             string appGuid = ((GuidAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(GuidAttribute), false).GetValue(0)).Value.ToString();
-            Mutex mutex = new System.Threading.Mutex(true, appGuid, out OK);
+            Mutex mutex = new System.Threading.Mutex(true, appGuid, out bool OK);
 
             if (!OK) {
                 MessageBox.Show("Another instance of Vagrant Manager is already running");

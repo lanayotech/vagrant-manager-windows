@@ -184,5 +184,4 @@ UpgradeLog*.htm
 FakesAssemblies/
 Lanayo.VagrantManager/Images/Thumbs.db
 
-/Output/*
-*.iss
+/innosetup/Output/*

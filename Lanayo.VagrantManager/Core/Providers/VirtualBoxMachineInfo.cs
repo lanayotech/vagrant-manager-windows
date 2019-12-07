@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Lanayo.Vagrant_Manager.Core.Vagrant;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Lanayo.Vagrant_Manager.Core.Providers {
     class VirtualBoxMachineInfo : VirtualMachineInfo {
@@ -27,7 +28,7 @@ namespace Lanayo.Vagrant_Manager.Core.Providers {
                     name = name.Substring(1, name.Length - 2);
                 }
 
-                if (value.Substring(0, 1) == "\"") {
+                if (value != "" && value.Substring(0, 1) == "\"") {
                     value = value.Substring(1, value.Length - 2);
                 }
 
@@ -48,9 +49,15 @@ namespace Lanayo.Vagrant_Manager.Core.Providers {
                     if (name.StartsWith("SharedFolderNameMachineMapping")) {
                         sharedFolders[mappingId]["name"] = value;
                     } else if(name.StartsWith("SharedFolderPathMachineMapping")) {
+                        //avoid double escape
+                        if (value.StartsWith(@"\\\\?\\"))
+                        {
+                            value = Regex.Unescape(value);
+                        }                        
+
                         if (value.StartsWith(@"\\?\")) {
                             value = value.Substring(4);
-                        }
+                        } 
                         sharedFolders[mappingId]["path"] = new DirectoryInfo(value).FullName;
                     }
                 } else {
