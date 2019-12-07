@@ -23,7 +23,7 @@ namespace Lanayo.Vagrant_Manager.Windows {
         protected override CreateParams CreateParams {
             get {
                 CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
                 return myCp;
             }
         }
@@ -78,8 +78,10 @@ namespace Lanayo.Vagrant_Manager.Windows {
                     TaskStatusLabel.Text = "Completed Successfully";
                 }
 
-                Dictionary<string, object> userInfo = new Dictionary<string, object>();
-                userInfo["target"] = Target;
+                Dictionary<string, object> userInfo = new Dictionary<string, object>
+                {
+                    ["target"] = Target
+                };
                 NotificationCenter.Instance.PostNotification("vagrant-manager.task-completed", new Notification(null, userInfo));
 
                 CancelTaskButton.Enabled = false;

@@ -22,15 +22,15 @@ namespace Lanayo.Vagrant_Manager.Menu {
 
         public MenuDelegate Delegate { get; set; }
 
-        private ContextMenuStrip _Menu;
-        private NotifyIcon _NotifyIcon;
-        private ToolStripMenuItem _RefreshMenuItem;
+        private readonly ContextMenuStrip _Menu;
+        private readonly NotifyIcon _NotifyIcon;
+        private readonly ToolStripMenuItem _RefreshMenuItem;
         private List<NativeMenuItem> _MenuItems;
 
-        private ToolStripSeparator _TopMachineSeparator;
-        private ToolStripSeparator _BottomMachineSeparator;
+        private readonly ToolStripSeparator _TopMachineSeparator;
+        private readonly ToolStripSeparator _BottomMachineSeparator;
 
-        private ToolStripMenuItem _CheckForUpdatesMenuItem;
+        private readonly ToolStripMenuItem _CheckForUpdatesMenuItem;
 
         private int _RefreshIconFrame;
         private Timer _RefreshTimer;
@@ -104,8 +104,10 @@ namespace Lanayo.Vagrant_Manager.Menu {
         }
 
         private void InstanceAdded(Notification notification) {
-            NativeMenuItem item = new NativeMenuItem();
-            item.Delegate = this;
+            NativeMenuItem item = new NativeMenuItem
+            {
+                Delegate = this
+            };
             _MenuItems.Add(item);
             item.Instance = (VagrantInstance)notification.UserInfo["instance"];
             item.MenuItem = new ToolStripMenuItem(item.Instance.DisplayName);
@@ -140,8 +142,7 @@ namespace Lanayo.Vagrant_Manager.Menu {
         }
         private void UpdateRunningVmCount(Notification notification) {
             int count = (int)notification.UserInfo["count"];
-            Icon newIcon = null;
-
+            Icon newIcon;
             if (count > 0) {
                 //TODO: show running vm count?
                 newIcon = Icon.FromHandle(Resources.vagrant_logo_on.GetHicon());
@@ -228,8 +229,10 @@ namespace Lanayo.Vagrant_Manager.Menu {
 
             if (isRefreshing) {
                 _RefreshIconFrame = 1;
-                _RefreshTimer = new Timer();
-                _RefreshTimer.Interval = 200;
+                _RefreshTimer = new Timer
+                {
+                    Interval = 200
+                };
                 _RefreshTimer.Tick += UpdateRefreshIcon;
                 _RefreshTimer.Start();
             } else {
@@ -400,19 +403,25 @@ namespace Lanayo.Vagrant_Manager.Menu {
             App.Instance.RefreshVagrantMachines();
         }
         private void ManageBookmarksMenuItem_Click(object sender, EventArgs e) {
-            ManageBookmarksWindow = new ManageBookmarksWindow();
-            ManageBookmarksWindow.StartPosition = FormStartPosition.CenterScreen;
+            ManageBookmarksWindow = new ManageBookmarksWindow
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
             ManageBookmarksWindow.Show();
         }
         private void PreferencesMenuItem_Click(object sender, EventArgs e) {
-            PreferencesWindow = new PreferencesWindow();
-            PreferencesWindow.StartPosition = FormStartPosition.CenterScreen;
+            PreferencesWindow = new PreferencesWindow
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
             PreferencesWindow.Show();
         }
 
         private void AboutMenuItem_Click(object sender, EventArgs e) {
-            AboutWindow = new AboutWindow();
-            AboutWindow.StartPosition = FormStartPosition.CenterScreen;
+            AboutWindow = new AboutWindow
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
             AboutWindow.Show();
         }
 

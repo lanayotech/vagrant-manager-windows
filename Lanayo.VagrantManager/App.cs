@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Lanayo.Vagrant_Manager.Core.Bookmarks;
@@ -24,7 +20,7 @@ namespace Lanayo.Vagrant_Manager {
         private bool IsRefreshingVagrantMachines;
         private int QueuedRefreshes;
         private static App _Instance;
-        public Timer RefreshTimer { get; set; }
+        public System.Windows.Forms.Timer RefreshTimer { get; set; }
 
         public static App Instance {
             get {
@@ -49,8 +45,10 @@ namespace Lanayo.Vagrant_Manager {
 
             _TaskOutputWindows = new List<TaskOutputWindow>();
 
-            _NativeMenu = new NativeMenu();
-            _NativeMenu.Delegate = this;
+            _NativeMenu = new NativeMenu
+            {
+                Delegate = this
+            };
 
             VagrantManager.Instance.Delegate = this;
             VagrantManager.Instance.RegisterServiceProvider(new VirtualBoxServiceProvider());
@@ -168,23 +166,29 @@ namespace Lanayo.Vagrant_Manager {
 
         public void InstanceAdded(VagrantManager vagrantManager, VagrantInstance instance) {
             _NativeMenu.Menu.BeginInvoke((MethodInvoker) delegate {
-                Dictionary<string, object> userInfo = new Dictionary<string, object>();
-                userInfo["instance"] = instance;
+                Dictionary<string, object> userInfo = new Dictionary<string, object>
+                {
+                    ["instance"] = instance
+                };
                 NotificationCenter.Instance.PostNotification("vagrant-manager.instance-added", new Notification(null, userInfo));
             });
         }
         public void InstanceRemoved(VagrantManager vagrantManager, VagrantInstance instance) {
             _NativeMenu.Menu.BeginInvoke((MethodInvoker)delegate {
-                Dictionary<string, object> userInfo = new Dictionary<string, object>();
-                userInfo["instance"] = instance;
+                Dictionary<string, object> userInfo = new Dictionary<string, object>
+                {
+                    ["instance"] = instance
+                };
                 NotificationCenter.Instance.PostNotification("vagrant-manager.instance-removed", new Notification(null, userInfo));
             });
         }
         public void InstanceUpdated(VagrantManager vagrantManager, VagrantInstance oldInstance, VagrantInstance newInstance) {
             _NativeMenu.Menu.BeginInvoke((MethodInvoker)delegate {
-                Dictionary<string, object> userInfo = new Dictionary<string, object>();
-                userInfo["old_instance"] = oldInstance;
-                userInfo["new_instance"] = newInstance;
+                Dictionary<string, object> userInfo = new Dictionary<string, object>
+                {
+                    ["old_instance"] = oldInstance,
+                    ["new_instance"] = newInstance
+                };
                 NotificationCenter.Instance.PostNotification("vagrant-manager.instance-updated", new Notification(null, userInfo));
             });
         }
@@ -244,11 +248,13 @@ namespace Lanayo.Vagrant_Manager {
             process.StartInfo.RedirectStandardError = true;
             process.StartInfo.Arguments = String.Format("/C cd /d {0} && {1} {2}", Util.EscapeShellArg(machine.Instance.Path), command, Util.EscapeShellArg(machine.Name));
 
-            TaskOutputWindow outputWindow = new TaskOutputWindow();
-            outputWindow.Task = process;
-            outputWindow.TaskCommand = process.StartInfo.Arguments;
-            outputWindow.TaskAction = command;
-            outputWindow.Target = machine;
+            TaskOutputWindow outputWindow = new TaskOutputWindow
+            {
+                Task = process,
+                TaskCommand = process.StartInfo.Arguments,
+                TaskAction = command,
+                Target = machine
+            };
             outputWindow.Show();
 
             _TaskOutputWindows.Add(outputWindow);
@@ -282,11 +288,13 @@ namespace Lanayo.Vagrant_Manager {
             process.StartInfo.RedirectStandardError = true;
             process.StartInfo.Arguments = String.Format("/C cd /d {0} && {1}", Util.EscapeShellArg(instance.Path), command);
 
-            TaskOutputWindow outputWindow = new TaskOutputWindow();
-            outputWindow.Task = process;
-            outputWindow.TaskCommand = process.StartInfo.Arguments;
-            outputWindow.TaskAction = command;
-            outputWindow.Target = instance;
+            TaskOutputWindow outputWindow = new TaskOutputWindow
+            {
+                Task = process,
+                TaskCommand = process.StartInfo.Arguments,
+                TaskAction = command,
+                Target = instance
+            };
             outputWindow.Show();
 
             _TaskOutputWindows.Add(outputWindow);
@@ -308,8 +316,10 @@ namespace Lanayo.Vagrant_Manager {
         }
 
         public void UpdateRunningCount() {
-            Dictionary<string, object> userInfo = new Dictionary<string, object>();
-            userInfo["count"] = VagrantManager.Instance.GetRunningVmCount();
+            Dictionary<string, object> userInfo = new Dictionary<string, object>
+            {
+                ["count"] = VagrantManager.Instance.GetRunningVmCount()
+            };
             NotificationCenter.Instance.PostNotification("vagrant-manager.update-running-vm-count", new Notification(null, userInfo));
         }
 
@@ -320,8 +330,10 @@ namespace Lanayo.Vagrant_Manager {
             }
 
             if (Properties.Settings.Default.RefreshEvery) {
-                RefreshTimer = new Timer();
-                RefreshTimer.Interval = Properties.Settings.Default.RefreshEveryInterval * 1000;
+                RefreshTimer = new System.Windows.Forms.Timer
+                {
+                    Interval = Properties.Settings.Default.RefreshEveryInterval * 1000
+                };
                 RefreshTimer.Tick += (s, args) => { this.RefreshVagrantMachines(); };
                 RefreshTimer.Start();
             }
@@ -332,9 +344,11 @@ namespace Lanayo.Vagrant_Manager {
 
                 MessageBox.Show("VBoxManage.exe not found at default location.\n\nIf using VirtualBox as your VM provider, you may specify an alternate path now, otherwise you may ignore this message, it will not appear again", "Vagrant Manager", MessageBoxButtons.OK);
 
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Title = "Select VBoxManage.exe";
-                dialog.Filter = "VBoxManage|VBoxManage.exe";
+                OpenFileDialog dialog = new OpenFileDialog
+                {
+                    Title = "Select VBoxManage.exe",
+                    Filter = "VBoxManage|VBoxManage.exe"
+                };
                 if (dialog.ShowDialog() == DialogResult.OK) {
                     DirectoryInfo info = new DirectoryInfo(dialog.FileName);
                     Properties.Settings.Default.VBoxManagePath = info.FullName;
