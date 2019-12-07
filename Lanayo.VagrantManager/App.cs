@@ -16,7 +16,6 @@ namespace Lanayo.Vagrant_Manager {
 
     class App : VagrantManagerDelegate, MenuDelegate {
         private NativeMenu _NativeMenu;
-        private List<TaskOutputWindow> _TaskOutputWindows;
         private bool IsRefreshingVagrantMachines;
         private int QueuedRefreshes;
         private static App _Instance;
@@ -42,8 +41,6 @@ namespace Lanayo.Vagrant_Manager {
             NotificationCenter.Instance.AddObserver(IncludeMachineNamesInMenuPreferenceChanged, "vagrant-manager.include-machine-names-in-menu-preference-changed");
             NotificationCenter.Instance.AddObserver(ShowUpdateNotificationPreferenceChanged, "vagrant-manager.show-update-notification-preference-changed");
             NotificationCenter.Instance.AddObserver(BookmarksUpdated, "vagrant-manager.bookmarks-updated");
-
-            _TaskOutputWindows = new List<TaskOutputWindow>();
 
             _NativeMenu = new NativeMenu
             {
@@ -265,8 +262,6 @@ namespace Lanayo.Vagrant_Manager {
                 Target = machine
             };
             outputWindow.Show();
-
-            _TaskOutputWindows.Add(outputWindow);
         }
 
         private void RunVagrantAction(string action, VagrantInstance instance) {
@@ -307,8 +302,6 @@ namespace Lanayo.Vagrant_Manager {
                 Target = instance
             };
             outputWindow.Show();
-
-            _TaskOutputWindows.Add(outputWindow);
         }
 
         private void RunTerminalCommand(string command) {
@@ -321,10 +314,6 @@ namespace Lanayo.Vagrant_Manager {
         #endregion
 
         #region Window management
-
-        private void RemoveTaskOutputWindow(TaskOutputWindow taskOutputWindow) {
-            _TaskOutputWindows.Remove(taskOutputWindow);
-        }
 
         public void UpdateRunningCount() {
             Dictionary<string, object> userInfo = new Dictionary<string, object>
