@@ -24,7 +24,7 @@ CreateAppDir=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputBaseFilename=VagrantManager-{#MyAppVersion}-Setup.exe
+OutputBaseFilename=VagrantManager-{#MyAppVersion}-Setup
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
