@@ -115,7 +115,7 @@ namespace Lanayo.Vagrant_Manager {
 
         public void PerformVagrantAction(string action, VagrantInstance instance) {
             if (action == "ssh") {
-                action = String.Format("cd /d {0} && vagrant ssh", Util.EscapeShellArg(instance.Path));
+                action = String.Format("cd /d {0}  && title {1}--{0} && vagrant ssh", Util.EscapeShellArg(instance.Path), instance.DisplayName);
                 this.RunTerminalCommand(action);
             } else if (action == "rsync-auto") {
                 action = String.Format("cd /d {0} && vagrant rsync-auto", Util.EscapeShellArg(instance.Path));
@@ -126,7 +126,7 @@ namespace Lanayo.Vagrant_Manager {
         }
         public void PerformVagrantAction(string action, VagrantMachine machine) {
             if (action == "ssh") {
-                action = String.Format("cd /d {0} && vagrant ssh {1}", Util.EscapeShellArg(machine.Instance.Path), machine.Name);
+                action = String.Format("cd /d {0} && title {1}--{0} && vagrant ssh {1}", Util.EscapeShellArg(machine.Instance.Path), machine.Name);
                 this.RunTerminalCommand(action);
             }
             else if (action == "rsync-auto") {
