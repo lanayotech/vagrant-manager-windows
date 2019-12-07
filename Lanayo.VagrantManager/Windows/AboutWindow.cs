@@ -16,7 +16,7 @@ namespace Lanayo.Vagrant_Manager.Windows {
         }
 
         private void AboutWindow_Load(object sender, EventArgs e) {
-            string str = "<div style=\"text-align:center;font-family:Arial;font-size:13px;\">Copyright &copy;{YEAR} Lanayo Tech<br><br>Vagrant Manager {VERSION}<br><br>For more information visit:<br><a href=\"{URL}\">{URL}</a><br><br>or check us out on GitHub:<br><a href=\"{GITHUB_URL}\">{GITHUB_URL}</a></div>"
+            string str = "<div style=\"text-align:center;font-family:Arial;font-size:13px;\">Copyright &copy;{YEAR} Lanayo, LLC<br><br>Vagrant Manager {VERSION}<br><br>For more information visit:<br><a href=\"{URL}\">{URL}</a><br><br>or check us out on GitHub:<br><a href=\"{GITHUB_URL}\">{GITHUB_URL}</a></div>"
                 .Replace("{YEAR}", DateTime.Now.Year.ToString())
                 .Replace("{VERSION}", Application.ProductVersion)
                 .Replace("{URL}", Properties.Settings.Default.AboutUrl)
